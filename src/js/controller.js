@@ -11,10 +11,6 @@ import addRecipeView from './views/addRecipeView.js';
 import 'core-js/stable'; // for polyfiling everything else
 import 'regenerator-runtime/runtime'; // for polyfiling async await
 
-if (module.hot) {
-  module.hot.accept();
-}
-
 const controlRecipes = async function () {
   try {
     // Getting hash
@@ -76,7 +72,6 @@ const controlServings = function (newServings) {
   model.updateServings(newServings);
 
   // Update the recipe view
-  // recipeView.render(model.state.recipe);
   recipeView.update(model.state.recipe);
 };
 
@@ -86,7 +81,6 @@ const controlAddBookmark = function () {
     model.addBookmark(model.state.recipe);
   } else {
     model.deleteBookmark(model.state.recipe.id);
-    // model.state.recipe.bookmarked;
   }
 
   // 2) Update recipe view
@@ -132,10 +126,6 @@ const controlAddRecipe = async function (newRecipe) {
   }
 };
 
-const newFeature = function () {
-  console.log('Welcome to the application');
-};
-
 const init = function () {
   bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);
@@ -144,6 +134,5 @@ const init = function () {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);
-  newFeature();
 };
 init();
